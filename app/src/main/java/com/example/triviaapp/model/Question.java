@@ -3,22 +3,22 @@ package com.example.triviaapp.model;
 import androidx.annotation.NonNull;
 
 public class Question {
-    private String answer;
+    private String questionText;
     private boolean answerTrue;
 
-    public Question(String answer, boolean answerTrue) {
-        this.answer = answer;
+    public Question(String questionText, boolean answerTrue) {
+        this.questionText = questionText;
         this.answerTrue = answerTrue;
     }
 
     public Question() {}
 
-    public String getAnswer() {
-        return answer;
+    public String getQuestionText() {
+        return questionText;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
     public boolean isAnswerTrue() {
@@ -33,7 +33,7 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "answer='" + answer + '\'' +
+                "answer='" + questionText + '\'' +
                 ", answerTrue=" + answerTrue +
                 '}';
     }
