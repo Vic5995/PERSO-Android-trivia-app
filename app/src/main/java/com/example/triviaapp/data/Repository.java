@@ -18,7 +18,7 @@ public class Repository {
     ArrayList<Question> questionArrayList = new ArrayList<>();
     String URL = "https://opentdb.com/api.php?amount=30&category=9&type=boolean";
 
-    public List<Question> getQuestions() {
+    public List<Question> getQuestions(final AnswerListAsync callback) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 response -> {
                     try {
@@ -28,6 +28,7 @@ public class Repository {
                             Question question = new Question(cur.getString("question"), cur.getBoolean("correct_answer"));
                             questionArrayList.add(question);
                         }
+                        if (null != callback) callback.processFinished(this.questionArrayList);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
