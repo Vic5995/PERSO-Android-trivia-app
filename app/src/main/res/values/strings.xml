@@ -6,4 +6,12 @@
     <string name="number_question_text">%d / %d</string>
     <string name="correct_answer">Correct !</string>
     <string name="incorrect_answer">Incorrect !</string>
+    <string name="app_title_tv_text">WELCOME TO THE TRIVIA APP</string>
+    <string name="label_number_of_question_text">Number of questions:</string>
+    <string name="label_question_theme_text">Category</string>
+    <string name="label_level_text">Difficulty:</string>
+    <string name="level_select_easy">Easy</string>
+    <string name="level_select_medium">Medium</string>
+    <string name="level_select_hard">Hard</string>
+    <string name="btn_start_text">Start the quiz !</string>
 </resources>
