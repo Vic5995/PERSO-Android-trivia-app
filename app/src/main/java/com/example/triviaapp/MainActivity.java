@@ -1,5 +1,6 @@
 package com.example.triviaapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,12 +22,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String SCORE_ID = "Score_pref";
     private ActivityMainBinding binding;
     private List<Question> questionBank;
     private int currentQuestionIndex = 0;
-
-    SharedPreferences sharedPreferences;
+    private int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +35,17 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
-            new Repository().getQuestionsWithParameters(questionArrayList -> {
-                Log.d("BUNDLE", "onCreate: PARAMS");
+            new Repository().getQuestionsWithParameters(extra.getInt("amount"), extra.getInt("category"), extra.getString("difficulty"), questionArrayList -> {
                 questionBank = questionArrayList;
-                updateQuestion();
-            }, extra.getInt("amount"), extra.getInt("category"), extra.getString("difficulty"));
+                if (questionArrayList.size() > 0) {
+                    updateQuestion();
+                } else {
+                    setResult(RESULT_CANCELED);
+                    finish();
+                }
+            });
         } else {
             new Repository().getQuestions(questionArrayList -> {
-                Log.d("BUNDLE", "onCreate: FAIL");
                 questionBank = questionArrayList;
                 updateQuestion();
             });
@@ -52,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.nextQuestionBtn.setOnClickListener(view -> {
-            currentQuestionIndex = (currentQuestionIndex + 1) % questionBank.size();
-            updateQuestion();
+            if (currentQuestionIndex < questionBank.size() - 1) {
+                currentQuestionIndex++;
+                updateQuestion();
+            } else {
+                updateHigherScore();
+            }
         });
         binding.answerTrueBtn.setOnClickListener(view -> {
             checkAnswer(true);
@@ -63,14 +69,6 @@ public class MainActivity extends AppCompatActivity {
             checkAnswer(false);
             updateQuestion();
         });
-
-        sharedPreferences = getSharedPreferences(SCORE_ID, MODE_PRIVATE); // only this application can access
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(SCORE_ID, 15);
-        editor.apply();  // saving to disk
-
-        // Get data back from SharedPref
-        int value = sharedPreferences.getInt(SCORE_ID, 0);
     }
 
     private void updateQuestion() {
@@ -84,12 +82,29 @@ public class MainActivity extends AppCompatActivity {
         int toastIdMsg;
         if (userAnswer == answer) {
             toastIdMsg = R.string.correct_answer;
+            score++;
             fadeAnimation();
         } else {
             toastIdMsg = R.string.incorrect_answer;
             shakeAnimation();
         }
         Snackbar.make(binding.questionCv, toastIdMsg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void updateHigherScore() {
+        String SCORE_ID = "Score_pref";
+        SharedPreferences sharedPreferences = getSharedPreferences(SCORE_ID, MODE_PRIVATE); // only this application can access
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        int finalScore = score * 100 / questionBank.size();
+        int value = sharedPreferences.getInt(SCORE_ID, -1);
+        if (finalScore > value) {
+            editor.putInt(SCORE_ID, finalScore);
+            editor.apply();  // saving to disk
+        }
+        Intent intent  = new Intent().putExtra("finalScore", finalScore);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void fadeAnimation() {

@@ -45,7 +45,7 @@ public class Repository {
         return this.questionArrayList;
     }
 
-    public List<Question> getQuestionsWithParameters(final AnswerListAsync callback, int amount, int category, String difficulty) {
+    public List<Question> getQuestionsWithParameters(int amount, int category, String difficulty, final AnswerListAsync callback) {
         String url = URL_PARAMS + "amount=" + amount + "&category=" + category + "&difficulty=" + difficulty + "&type=boolean";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
