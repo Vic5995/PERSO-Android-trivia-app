@@ -1,8 +1,10 @@
 package com.example.triviaapp;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,9 +21,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String SCORE_ID = "Score_pref";
     private ActivityMainBinding binding;
     private List<Question> questionBank;
     private int currentQuestionIndex = 0;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +34,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        new Repository().getQuestions(questionArrayList -> {
-            questionBank = questionArrayList;
-            updateQuestion();
-        });
+        Bundle extra = getIntent().getExtras();
+        if (extra != null) {
+            new Repository().getQuestionsWithParameters(questionArrayList -> {
+                Log.d("BUNDLE", "onCreate: PARAMS");
+                questionBank = questionArrayList;
+                updateQuestion();
+            }, extra.getInt("amount"), extra.getInt("category"), extra.getString("difficulty"));
+        } else {
+            new Repository().getQuestions(questionArrayList -> {
+                Log.d("BUNDLE", "onCreate: FAIL");
+                questionBank = questionArrayList;
+                updateQuestion();
+            });
+        }
+
+
 
         binding.nextQuestionBtn.setOnClickListener(view -> {
             currentQuestionIndex = (currentQuestionIndex + 1) % questionBank.size();
@@ -46,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
             checkAnswer(false);
             updateQuestion();
         });
+
+        sharedPreferences = getSharedPreferences(SCORE_ID, MODE_PRIVATE); // only this application can access
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(SCORE_ID, 15);
+        editor.apply();  // saving to disk
+
+        // Get data back from SharedPref
+        int value = sharedPreferences.getInt(SCORE_ID, 0);
     }
 
     private void updateQuestion() {

@@ -1,115 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MenuActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/app_title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:text="@string/app_title_tv_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <EditText
-        android:id="@+id/input_number_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
-        app:layout_constraintStart_toEndOf="@+id/label_number_question_tv"
-        app:layout_constraintTop_toBottomOf="@+id/app_title_tv"
-        android:autofillHints="" />
+    </data>
 
-    <Spinner
-        android:id="@+id/spinner_theme"
-        android:layout_width="268dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.245"
-        app:layout_constraintStart_toEndOf="@+id/label_question_theme"
-        app:layout_constraintTop_toBottomOf="@+id/input_number_question" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MenuActivity">
 
-    <RadioGroup
-        android:id="@+id/select_difficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/label_level">
-
-        <RadioButton
-            android:id="@+id/easy"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/app_title_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/level_select_easy" />
+            android:layout_marginTop="84dp"
+            android:text="@string/app_title_tv_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/medium"
-            android:layout_width="match_parent"
+        <NumberPicker
+            android:id="@+id/input_number_question"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/level_select_medium" />
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.121"
+            app:layout_constraintStart_toEndOf="@+id/label_number_question_tv"
+            app:layout_constraintTop_toBottomOf="@+id/app_title_tv"
+            />
 
-        <RadioButton
-            android:id="@+id/hard"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinner_theme"
+            android:layout_width="268dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.245"
+            app:layout_constraintStart_toEndOf="@+id/label_question_theme"
+            app:layout_constraintTop_toBottomOf="@+id/input_number_question" />
+
+        <RadioGroup
+            android:id="@+id/select_difficulty"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/level_select_hard" />
-    </RadioGroup>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/label_level">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_start_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_difficulty"
-        app:layout_constraintVertical_bias="0.207" />
+            <RadioButton
+                android:id="@+id/easy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/level_select_easy" />
 
-    <TextView
-        android:id="@+id/label_number_question_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/label_number_of_question_text"
-        android:labelFor="@id/input_number_question"
-        app:layout_constraintBottom_toBottomOf="@+id/input_number_question"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_title_tv"
-        app:layout_constraintVertical_bias="0.703" />
+            <RadioButton
+                android:id="@+id/medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/level_select_medium" />
 
-    <TextView
-        android:id="@+id/label_question_theme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="@string/label_question_theme_text"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_theme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner_theme"
-        app:layout_constraintVertical_bias="0.428" />
+            <RadioButton
+                android:id="@+id/hard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/level_select_hard" />
+        </RadioGroup>
 
-    <TextView
-        android:id="@+id/label_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/label_level_text"
-        app:layout_constraintEnd_toStartOf="@+id/select_difficulty"
-        app:layout_constraintHorizontal_bias="0.301"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_theme" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/start_quiz_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_start_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_difficulty"
+            app:layout_constraintVertical_bias="0.207" />
+
+        <TextView
+            android:id="@+id/label_number_question_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:labelFor="@id/input_number_question"
+            android:text="@string/label_number_of_question_text"
+            app:layout_constraintBottom_toBottomOf="@+id/input_number_question"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/input_number_question" />
+
+        <TextView
+            android:id="@+id/label_question_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="@string/label_question_theme_text"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_theme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spinner_theme"
+            app:layout_constraintVertical_bias="0.428" />
+
+        <TextView
+            android:id="@+id/label_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/label_level_text"
+            app:layout_constraintEnd_toStartOf="@+id/select_difficulty"
+            app:layout_constraintHorizontal_bias="0.301"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_theme" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
