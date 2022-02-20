@@ -5,6 +5,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.triviaapp.controller.AppController;
+import com.example.triviaapp.model.Game;
 import com.example.triviaapp.model.Question;
 
 import org.json.JSONArray;
@@ -45,8 +46,12 @@ public class Repository {
         return this.questionArrayList;
     }
 
-    public List<Question> getQuestionsWithParameters(int amount, int category, String difficulty, final AnswerListAsync callback) {
-        String url = URL_PARAMS + "amount=" + amount + "&category=" + category + "&difficulty=" + difficulty + "&type=boolean";
+    public List<Question> getQuestionsWithParameters(Game game, final AnswerListAsync callback) {
+        String url = URL_PARAMS
+                + "amount=" + game.getNumberOfQuestions()
+                + "&category=" + game.getQuestionCategory().getId()
+                + "&difficulty=" + game.getDifficulty()
+                + "&type=boolean";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {

@@ -21,9 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <!--        android:background="@drawable/et_pill_shape"-->
-
     <TextView
         android:id="@+id/new_game_questions_number_label"
         android:layout_width="match_parent"
@@ -37,10 +34,11 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/new_game_questions_number_rg"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:singleSelection="true"
+        app:selectionRequired="true"
         app:layout_constraintTop_toBottomOf="@id/new_game_questions_number_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -87,10 +85,11 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/new_game_difficulty_rg"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:singleSelection="true"
+        app:selectionRequired="true"
         app:layout_constraintTop_toBottomOf="@id/new_game_theme_spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">

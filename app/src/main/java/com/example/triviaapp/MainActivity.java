@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.triviaapp.data.Repository;
 import com.example.triviaapp.databinding.ActivityMainBinding;
+import com.example.triviaapp.model.Game;
 import com.example.triviaapp.model.Question;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Bundle extra = getIntent().getExtras();
-        if (extra != null) {
-            new Repository().getQuestionsWithParameters(extra.getInt("amount"), extra.getInt("category"), extra.getString("difficulty"), questionArrayList -> {
+        Game currGame = (Game) getIntent().getSerializableExtra("game");
+        if (currGame != null) {
+            new Repository().getQuestionsWithParameters(currGame, questionArrayList -> {
                 questionBank = questionArrayList;
                 if (questionArrayList.size() > 0) {
                     updateQuestion();
@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 updateQuestion();
             });
         }
-
-
 
         binding.nextQuestionBtn.setOnClickListener(view -> {
             if (currentQuestionIndex < questionBank.size() - 1) {
