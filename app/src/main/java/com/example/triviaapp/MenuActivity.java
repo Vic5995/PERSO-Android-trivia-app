@@ -2,6 +2,7 @@ package com.example.triviaapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
@@ -17,12 +18,18 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.triviaapp.databinding.ActivityMenuBinding;
+import com.example.triviaapp.fragment.NewGameBottomSheetFragment;
+import com.example.triviaapp.model.QuestionCategory;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class MenuActivity extends AppCompatActivity {
 
+    public final String TAG = "Menu Activity";
     private ActivityMenuBinding binding;
     private int categoryNumber = 9;
     private String difficulty = "easy";
+
+    NewGameBottomSheetFragment newGameBottomSheetFragment;
 
     private final int REQUEST_CODE = 10002;
 
@@ -32,18 +39,31 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
 
-        setSpinner();
+        /*setSpinner();
         setDifficultyRadios();
         setNumberPicker();
-        setHigherScore();
+        setHigherScore();*/
 
-        binding.startQuizBtn.setOnClickListener(v -> {
+        Log.d(TAG, "onCreate: ");
+
+        newGameBottomSheetFragment = new NewGameBottomSheetFragment();
+        ConstraintLayout constraintLayout = findViewById(R.id.bottom_sheet_fragment_constraint_layout);
+        BottomSheetBehavior<ConstraintLayout> bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout);
+        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.STATE_HIDDEN);
+
+        binding.menuNewGameBtn.setOnClickListener(v -> showBottomSheetFragment());
+
+        /*binding.startQuizBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this, MainActivity.class);
             intent.putExtra("category", categoryNumber);
             intent.putExtra("amount", binding.inputNumberQuestion.getValue());
             intent.putExtra("difficulty", difficulty);
             startActivityForResult(intent, REQUEST_CODE);
-        });
+        });*/
+    }
+
+    private void showBottomSheetFragment(){
+        newGameBottomSheetFragment.show(getSupportFragmentManager(), newGameBottomSheetFragment.getTag());
     }
 
     @Override
@@ -54,14 +74,14 @@ public class MenuActivity extends AppCompatActivity {
                 assert data != null;
                 Toast.makeText(this, String.format(getString(R.string.score_final_text_toast),
                         data.getIntExtra("finalScore", -1)), Toast.LENGTH_SHORT).show();
-                setHigherScore();
+                //setHigherScore();
             } else if (requestCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Error in initialisation", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void setNumberPicker() {
+    /*private void setNumberPicker() {
         NumberPicker numberPicker = binding.inputNumberQuestion;
         numberPicker.setMinValue(10);
         numberPicker.setMaxValue(100);
@@ -115,36 +135,10 @@ public class MenuActivity extends AppCompatActivity {
             binding.higherScoreTv.setText(String.format(getString(R.string.higher_score_text), value));
         }
 
-    }
+    }*/
 
     private int getCategoryNumber(CharSequence selectedCategory) {
-        switch (selectedCategory.toString()) {
-            case "Entertainment: Books": return 10;
-            case "Entertainment: Film": return 11;
-            case "Entertainment: Music": return 12;
-            case "Entertainment: Musicals & Theatres": return 13;
-            case "Entertainment: Television": return 14;
-            case "Entertainment: Video Games": return 15;
-            case "Entertainment: Board Games": return 16;
-            case "Science & Nature": return 17;
-            case "Science: Computers": return 18;
-            case "Science: Mathematics": return 19;
-            case "Mythology": return 20;
-            case "Sports": return 21;
-            case "Geography": return 22;
-            case "History": return 23;
-            case "Politics": return 24;
-            case "Art": return 25;
-            case "Celebrities": return 26;
-            case "Animals": return 27;
-            case "Vehicles": return 28;
-            case "Entertainment: Comics": return 29;
-            case "Science: Gadgets": return 30;
-            case "Entertainment: Japanese Anime & Manga": return 31;
-            case "Entertainment: Cartoon & Animations": return 32;
-            default: return 9;
-        }
-
+        return QuestionCategory.getQuestionCategoryFromLabel(selectedCategory.toString()).getId();
     }
 
 }

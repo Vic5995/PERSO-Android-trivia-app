@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PillButtonAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:paddingVertical">10dp</item>
+        <item name="android:paddingHorizontal">30dp</item>
+    </style>
+
+
+</resources>

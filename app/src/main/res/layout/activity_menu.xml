@@ -7,7 +7,7 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MenuActivity"
@@ -15,16 +15,23 @@
 
         <TextView
             android:id="@+id/app_title_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="84dp"
-            android:text="@string/app_title_tv_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/app_title_tv_text" />
 
-        <NumberPicker
+        <Button
+            android:id="@+id/menu_new_game_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Game"
+            style="@style/Button"
+            app:shapeAppearanceOverlay="@style/PillButtonAppearance"
+            android:layout_gravity="center_horizontal|bottom"
+            />
+
+
+        <!--<NumberPicker
             android:id="@+id/input_number_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,17 +81,20 @@
                 android:text="@string/level_select_hard" />
         </RadioGroup>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/start_quiz_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:shapeAppearanceOverlay="@style/PillButtonAppearance"
+            style="@style/Button"
             android:text="@string/btn_start_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/select_difficulty"
-            app:layout_constraintVertical_bias="0.207" />
+            app:layout_constraintVertical_bias="0.207"
+            />
 
         <TextView
             android:id="@+id/label_number_question_tv"
@@ -129,5 +139,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            -->
+
+        <include
+            layout="@layout/bottom_sheet_fragment_new_game"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
