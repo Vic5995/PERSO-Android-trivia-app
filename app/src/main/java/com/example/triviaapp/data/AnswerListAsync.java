@@ -6,4 +6,6 @@ import java.util.ArrayList;
 
 public interface AnswerListAsync {
     void processFinished(ArrayList<Question> questionArrayList);
+
+    void processFinishedWithError(ArrayList<Question> questionArrayList, int responseCode);
 }

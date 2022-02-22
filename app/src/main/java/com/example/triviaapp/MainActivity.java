@@ -12,15 +12,17 @@ import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.triviaapp.data.AnswerListAsync;
 import com.example.triviaapp.data.Repository;
 import com.example.triviaapp.databinding.ActivityMainBinding;
 import com.example.triviaapp.model.Game;
 import com.example.triviaapp.model.Question;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AnswerListAsync {
 
     private ActivityMainBinding binding;
     private List<Question> questionBank;
@@ -35,20 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         Game currGame = (Game) getIntent().getSerializableExtra("game");
         if (currGame != null) {
-            new Repository().getQuestionsWithParameters(currGame, questionArrayList -> {
-                questionBank = questionArrayList;
-                if (questionArrayList.size() > 0) {
-                    updateQuestion();
-                } else {
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
-            });
+            new Repository().getQuestionsWithParameters(currGame, this);
         } else {
-            new Repository().getQuestions(questionArrayList -> {
-                questionBank = questionArrayList;
-                updateQuestion();
-            });
+            new Repository().getQuestions(this);
         }
 
         binding.nextQuestionBtn.setOnClickListener(view -> {
@@ -121,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                binding.questionCv.setCardBackgroundColor(getColor(R.color.blue_gray_200));
+                binding.questionCv.setCardBackgroundColor(Color.WHITE);
             }
 
             @Override
@@ -150,5 +141,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    public void processFinished(ArrayList<Question> questionArrayList) {
+        questionBank = questionArrayList;
+        if (questionArrayList.size() > 0) {
+            updateQuestion();
+        } else {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
+    }
+
+    @Override
+    public void processFinishedWithError(ArrayList<Question> questionArrayList, int responseCode) {
+        questionBank = questionArrayList;
+        if (questionArrayList.size() > 0) {
+            updateQuestion();
+            if (responseCode == 1) {
+                Snackbar.make(binding.questionCv, "Not enough question on the database for your selection", Snackbar.LENGTH_SHORT).show();
+
+            }
+        } else {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
     }
 }
