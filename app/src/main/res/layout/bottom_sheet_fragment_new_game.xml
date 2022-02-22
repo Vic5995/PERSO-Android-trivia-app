@@ -6,7 +6,7 @@
     style="@style/Animation.Design.BottomSheetDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@drawable/rounded_top_corners_background"
     app:behavior_hideable="false"
     app:behavior_peekHeight="32dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -16,12 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter your username"
-        android:padding="10dp"
+        android:padding="15dp"
+        android:background="@drawable/et_pill_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/new_game_questions_number_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/new_game_user_input" />
+        app:layout_constraintTop_toBottomOf="@id/new_game_user_input" />-->
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/new_game_questions_number_rg"
@@ -39,7 +40,7 @@
         android:layout_marginTop="16dp"
         app:singleSelection="true"
         app:selectionRequired="true"
-        app:layout_constraintTop_toBottomOf="@id/new_game_questions_number_label"
+        app:layout_constraintTop_toBottomOf="@id/new_game_user_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -78,6 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:padding="15dp"
         android:spinnerMode="dialog"
         app:layout_constraintTop_toBottomOf="@id/new_game_questions_number_rg"
         app:layout_constraintStart_toStartOf="parent"

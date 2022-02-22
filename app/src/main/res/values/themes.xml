@@ -12,5 +12,19 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialog</item>
+        <item name="spinnerStyle">@style/Widget.App.Spinner</item>
+        <item name="android:spinnerStyle">@style/Widget.App.Spinner</item>
     </style>
 </resources>
+
+<!--
+<color name="primary">#FF9800</color>
+<color name="primary_dark">#F57C00</color>
+<color name="primary_light">#FFE0B2</color>
+<color name="accent">#00BCD4</color>
+<color name="primary_text">#212121</color>
+<color name="secondary_text">#757575</color>
+<color name="icons">#212121</color>
+<color name="divider">#BDBDBD</color>-->

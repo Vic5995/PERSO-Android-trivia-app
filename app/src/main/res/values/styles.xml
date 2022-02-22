@@ -11,5 +11,17 @@
         <item name="android:paddingHorizontal">30dp</item>
     </style>
 
+    <style name="BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="android:colorBackground">@color/white</item>
+    </style>
+    <style name="BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.App.Spinner" parent="@style/Widget.AppCompat.Spinner">
+        <item name="overlapAnchor">true</item>
+        <item name="android:background">@drawable/spinner_background</item>
+    </style>
 
 </resources>

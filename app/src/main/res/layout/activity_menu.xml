@@ -11,18 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MenuActivity"
-        android:padding="10dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/app_title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
+            android:textAlignment="center"
+            style="@style/TextAppearance.AppCompat.Title"
             android:text="@string/app_title_tv_text" />
 
         <Button
             android:id="@+id/menu_new_game_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="New Game"
             style="@style/Button"
