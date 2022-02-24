@@ -1,35 +1,31 @@
 package com.example.triviaapp;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.NumberPicker;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.example.triviaapp.databinding.ActivityMenuBinding;
-import com.example.triviaapp.fragment.NewGameBottomSheetFragment;
-import com.example.triviaapp.listener.StartGameListener;
 import com.example.triviaapp.model.Game;
 import com.example.triviaapp.model.QuestionCategory;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.snackbar.Snackbar;
 
-public class MenuActivity extends AppCompatActivity implements StartGameListener {
+public class MenuActivity extends AppCompatActivity {
 
     public final String TAG = "Menu Activity";
     private ActivityMenuBinding binding;
 
-    NewGameBottomSheetFragment newGameBottomSheetFragment;
+    private QuestionCategory category = QuestionCategory.GENERAL_KNOWLEDGE;
+    private int numberOfQuestions = 10;
+    private String difficulty = "easy";
 
     private final int REQUEST_CODE = 10002;
 
@@ -39,19 +35,30 @@ public class MenuActivity extends AppCompatActivity implements StartGameListener
         setContentView(R.layout.activity_menu);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
 
-        Log.d(TAG, "onCreate: ");
+        setSpinner();
+        setDifficultyRadios();
+        setNumberOfQuestionsRadios();
 
-        newGameBottomSheetFragment = new NewGameBottomSheetFragment(this);
-        ConstraintLayout constraintLayout = findViewById(R.id.bottom_sheet_fragment_constraint_layout);
-        BottomSheetBehavior<ConstraintLayout> bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout);
-        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.STATE_HIDDEN);
+        binding.menuNewGameBtn.setOnClickListener(v -> {
+            String username = binding.newGameUserInput.getText().toString().trim();
+            if (!TextUtils.isEmpty(username)) {
+                Game myGame = new Game(
+                        username,
+                        numberOfQuestions,
+                        category,
+                        difficulty);
+                binding.newGameUserInput.setText("");
 
-        binding.menuNewGameBtn.setOnClickListener(v -> showBottomSheetFragment());
+                Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                intent.putExtra("game", myGame);
+                startActivityForResult(intent, REQUEST_CODE);
+
+            } else {
+                Snackbar.make(binding.menuNewGameBtn, "Username field must not be empty", Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
-    private void showBottomSheetFragment(){
-        newGameBottomSheetFragment.show(getSupportFragmentManager(), newGameBottomSheetFragment.getTag());
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -67,11 +74,51 @@ public class MenuActivity extends AppCompatActivity implements StartGameListener
         }
     }
 
-    @Override
-    public void startGame(Game game) {
-        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-        intent.putExtra("game", game);
-        startActivityForResult(intent, REQUEST_CODE);
+    private void setSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category_names, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.newGameThemeSpinner.setAdapter(adapter);
+        binding.newGameThemeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CharSequence selected = (CharSequence) parent.getSelectedItem();
+                category = QuestionCategory.getQuestionCategoryFromLabel(selected.toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
+
+    private void setDifficultyRadios() {
+        binding.newGameDifficultyChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == binding.newGameDifficultyEasy.getId()) {
+                difficulty = "easy";
+            } else if (checkedId == binding.newGameDifficultyMedium.getId()) {
+                difficulty = "medium";
+            } else {
+                difficulty = "hard";
+            }
+
+            Log.d("RADIO", "onCheckedChanged: " + difficulty);
+        });
+    }
+
+    private void setNumberOfQuestionsRadios() {
+
+        binding.newGameQuestionsNumberChipGroup.check(binding.newGameQuestionsChip10.getId());
+        binding.newGameQuestionsNumberChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == binding.newGameQuestionsChip10.getId()) {
+                numberOfQuestions = 15;
+            } else if (checkedId == binding.newGameQuestionsChip20.getId()) {
+                numberOfQuestions = 30;
+            } else {
+                numberOfQuestions = 60;
+            }
+        });
+    }
+
 
 }

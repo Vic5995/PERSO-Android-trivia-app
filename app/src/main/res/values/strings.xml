@@ -17,6 +17,14 @@
     <string name="default_number_question_value">10</string>
     <string name="higher_score_text">Higher Score: %d</string>
     <string name="score_final_text_toast">Well Done! Your score is %d</string>
+    <string name="menu_username_input_hint">Enter your username</string>
+    <string name="menu_chip_10_questions">10 questions</string>
+    <string name="menu_chip_20_questions">20 questions</string>
+    <string name="menu_chip_30_questions">30 questions</string>
+    <string name="menu_difficulty_easy">Easy</string>
+    <string name="menu_difficulty_medium">Medium</string>
+    <string name="menu_difficulty_hard">Hard</string>
+    <string name="menu_new_game_btn_text">New Game</string>
 
     <string-array name="category_names">
         <item>General Knowledge</item>

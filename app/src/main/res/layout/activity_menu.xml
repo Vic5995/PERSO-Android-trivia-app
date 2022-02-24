@@ -7,7 +7,7 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MenuActivity"
@@ -18,21 +18,135 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
             style="@style/TextAppearance.AppCompat.Title"
             android:text="@string/app_title_tv_text" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintGuide_begin="100dp"
+            android:orientation="horizontal" />
+
+        <EditText
+            android:id="@+id/new_game_user_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/menu_username_input_hint"
+            android:padding="15dp"
+            android:background="@drawable/et_pill_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline_1"
+            android:inputType="text"
+            android:importantForAutofill="no" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/new_game_questions_number_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:layout_constraintTop_toBottomOf="@id/new_game_user_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/new_game_questions_chip_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_chip_10_questions"
+                android:padding="5dp"
+                android:checked="true"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/new_game_questions_chip_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_chip_20_questions"
+                android:padding="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/new_game_questions_chip_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_chip_30_questions"
+                android:padding="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Spinner
+            android:id="@+id/new_game_theme_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="15dp"
+            android:spinnerMode="dialog"
+            app:layout_constraintTop_toBottomOf="@id/new_game_questions_number_chip_group"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/new_game_difficulty_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:layout_constraintTop_toBottomOf="@id/new_game_theme_spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/new_game_difficulty_easy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_difficulty_easy"
+                android:padding="5dp"
+                android:checked="true"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/new_game_difficulty_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_difficulty_medium"
+                android:padding="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/new_game_difficulty_hard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_difficulty_hard"
+                android:padding="5dp"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                />
+
+        </com.google.android.material.chip.ChipGroup>
 
         <Button
             android:id="@+id/menu_new_game_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Game"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/menu_new_game_btn_text"
             style="@style/Button"
             app:shapeAppearanceOverlay="@style/PillButtonAppearance"
             android:layout_gravity="center_horizontal|bottom"
             />
 
-
-        <include
-            layout="@layout/bottom_sheet_fragment_new_game"/>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
