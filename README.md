@@ -20,5 +20,4 @@ The first part of this project was done in a [Android Bootcamp from Udemy](https
 
 ## Current UI
 
-![Screenshot of the menu](./screenshots/trivia-app-screenshot-1.png)
-![Screenshot of the quiz](./screenshots/trivia-app-screenshot-2.png)
+![Screenshot of the menu](./screenshots/trivia-app-screenshot-1.png) ![Screenshot of the quiz](./screenshots/trivia-app-screenshot-2.png)
