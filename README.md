@@ -15,8 +15,18 @@ The first part of this project was done in a [Android Bootcamp from Udemy](https
 * Improve the UI
   * Change the style of the application
   * Improve the UX on the quiz screen
+  * After selecting an answer, display the next question to the User. Do this until the quiz is finished
   
 * Add the possibility to do multiple choice questions
+* At the end, the User can see the following statistics
+* Time it took to finish the quiz
+
+## Bonus features
+* User can share the result of a quiz on social media
+* Add multiple quizzes to the application. User can select which one to take
+* User can create an account and have all the scores saved in his dashboard. User can complete a quiz multiple times
+## Useful links and resources
+* [Open Trivia Database](https://opentdb.com/api_config.php)
 
 ## Current UI
 
